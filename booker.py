@@ -28,9 +28,9 @@ class Booker(object):
         self.username = username
         self.password = password
 
-        options = webdriver.FirefoxOptions()
+        options = webdriver.ChromeOptions()
         options.add_argument('--headless')
-        self.driver = webdriver.Firefox(options=options)
+        self.driver = webdriver.Chrome(options=options)
 
     def book(self) -> None:
         if self.booking_info:
@@ -43,7 +43,7 @@ class Booker(object):
             tmp = self.checkout() if tmp else False
 
             if tmp:
-                logging.info('Successfully booked for user: '.format(self.username))
+                logging.info('Successfully booked for user: {}'.format(self.username))
             
 
     def login(self) -> bool:
@@ -124,13 +124,18 @@ class Booker(object):
         try:
             checkout_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'checkoutButton')))
             checkout_button.click()
-
-            payment_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.card-item-main:nth-child(3)')))
+        except Exception as e:
+            logging.error('Could not press checkout button')
+            logging.error(str(e))
+            return False
+        
+        try:
+            payment_button = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.card-item-main:nth-child(3)')))
             payment_button.click()
             logging.info('Checked out')
             return True
         except Exception as e:
-            logging.error('Could not check out')
+            logging.error('Could not press payment option')
             logging.error(str(e))
             return False
 
