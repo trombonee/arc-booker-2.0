@@ -32,7 +32,7 @@ class Booker(object):
         options.add_argument('--headless')
         self.driver = webdriver.Firefox(options=options)
 
-    def book(self):
+    def book(self) -> None:
         if self.booking_info:
             self.driver.get(self.booking_link)
             tmp = self.acknowledge_cookies()
@@ -46,7 +46,7 @@ class Booker(object):
                 logging.info('Successfully booked for user: '.format(self.username))
             
 
-    def login(self):
+    def login(self) -> bool:
         try:
             login_script = self.driver.find_element_by_id('loginLink').get_attribute('href')
             self.driver.execute_script(login_script)
@@ -64,7 +64,7 @@ class Booker(object):
             logging.error(str(e))
             return False
          
-    def fill_login_form(self):
+    def fill_login_form(self) -> bool:
         try:
             signon_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
                     (   By.CSS_SELECTOR,
@@ -83,7 +83,7 @@ class Booker(object):
             logging.error(str(e))
             return False
     
-    def find_booking_time(self):
+    def find_booking_time(self) -> bool:
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'schedule-heading')))
             register_buttons = self.driver.find_elements_by_css_selector('button.btn.btn-primary')
@@ -108,7 +108,7 @@ class Booker(object):
             return False
         
     
-    def accept_waiver(self):
+    def accept_waiver(self) -> bool:
         try:
             WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located((By.ID, 'loading')))
             accept_button = self.driver.find_element_by_id('btnAccept')
@@ -120,7 +120,7 @@ class Booker(object):
             logging.error(str(e))
             return False
     
-    def checkout(self):
+    def checkout(self) -> bool:
         try:
             checkout_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'checkoutButton')))
             checkout_button.click()
@@ -134,7 +134,7 @@ class Booker(object):
             logging.error(str(e))
             return False
 
-    def acknowledge_cookies(self):
+    def acknowledge_cookies(self) -> bool:
         try:
             cookies_accept = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'gdpr-cookie-accept')))
             cookies_accept.click()
