@@ -28,9 +28,9 @@ class Booker(object):
         self.username = username
         self.password = password
 
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        self.driver = webdriver.Chrome(options=options)
+        options = webdriver.FirefoxOptions()
+        #options.add_argument('--headless')
+        self.driver = webdriver.Firefox(options=options)
 
     def book(self) -> None:
         if self.booking_info:
