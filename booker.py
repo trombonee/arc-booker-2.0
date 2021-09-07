@@ -29,7 +29,7 @@ class Booker(object):
         self.password = password
 
         options = webdriver.FirefoxOptions()
-        #options.add_argument('--headless')
+        options.add_argument('--headless')
         self.driver = webdriver.Firefox(options=options)
 
     def book(self) -> None:

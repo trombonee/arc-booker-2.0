@@ -1,3 +1,5 @@
+#! /home/lucat/Documents/arc-booker-2.0/.venv/bin/python
+
 from datetime import datetime, time, date, timedelta
 import threading
 import json
@@ -5,14 +7,14 @@ import json
 from booker import Booker
 import logging
 
-CONFIG_FILE = 'user_config.json'
+CONFIG_FILE = '/home/lucat/Documents/arc-booker-2.0/user_config.json'
 ZONE = 'lower-squatrack'
 HOUR = 7
 MINUTE = 45
 
 logging.basicConfig(
         format= '%(asctime)s %(levelname)-8s %(message)s',
-        filename='booking.log', 
+        filename='/home/lucat/Documents/arc-booker-2.0/booking.log', 
         level=logging.INFO,
         datefmt='%Y-%m-%d %H:%M:%S'
     )
@@ -41,7 +43,7 @@ def booking_thread(user: str, data: dict, booking_day: date, booking_time: time,
 
 
 
-def load_userdata(config_filepath: str='user_config.json') -> dict:
+def load_userdata(config_filepath: str=CONFIG_FILE) -> dict:
     with open(config_filepath, 'r') as f:
         userdata = json.load(f)
     
