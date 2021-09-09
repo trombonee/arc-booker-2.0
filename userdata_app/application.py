@@ -13,7 +13,7 @@ import time as t
 WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 class Application(tk.Frame):
-    def __init__(self, master=None):
+    def __init__(self, master: tk.Tk=None):
         super().__init__(master)
         self.master = master
         self.pack(fill=tk.BOTH)
@@ -95,7 +95,7 @@ class Application(tk.Frame):
         confirm_button = tk.Button(form_frame, text='Add User', command=self.add_user)
         confirm_button.grid(row=1, column=3, padx=2)
     
-    def add_user(self):
+    def add_user(self) -> None:
         new_user = self.new_user_var.get()
         if new_user and new_user not in self.userdata.keys():
             default_booking = self.default_booking_data()
@@ -112,9 +112,7 @@ class Application(tk.Frame):
             set_data(self.userdata)
             git_push()
     
-    
     def initialize_booking_form(self) -> None:
-        
 
         form_frame = tk.Frame(self.current_frame)
         form_frame.pack(fill=tk.BOTH)
@@ -157,7 +155,7 @@ class Application(tk.Frame):
         delete_button = tk.Button(button_frame, text='Delete User', command=self.delete_user)
         delete_button.pack(side=tk.RIGHT, padx=10)
     
-    def handle_zone_select(self, val):
+    def handle_zone_select(self, val: str) -> None:
         for day, var in self.booking_data.items():
             zone = var['booking_zone'].get()
             if zone != 'None': 
@@ -173,7 +171,7 @@ class Application(tk.Frame):
                 var['time'].set(None)
 
     
-    def get_time_list(self, zone):
+    def get_time_list(self, zone: str) -> list:
         fh = zone_time_data[zone]['first_hour']
         fm = zone_time_data[zone]['first_minute']
         lh = zone_time_data[zone]['last_hour']
@@ -213,7 +211,7 @@ class Application(tk.Frame):
 
         return booking_dict
     
-    def handle_user_select(self, value):
+    def handle_user_select(self, value: str) -> None:
         if value and value != '':
             current_userdata = self.userdata[value]
 
@@ -223,7 +221,7 @@ class Application(tk.Frame):
             
             self.handle_zone_select(None)
 
-    def update_userdata(self):
+    def update_userdata(self) -> None:
         active_user = self.active_user.get()
         if active_user and active_user != '':
             current_userdata = self.userdata[self.active_user.get()]
@@ -236,7 +234,7 @@ class Application(tk.Frame):
             git_push()
             
     
-    def delete_user(self):
+    def delete_user(self) -> None:
         active_user = self.active_user.get()
         if active_user and active_user != '':
             answer = messagebox.askokcancel(title='Confirm Delete', message='Are you sure you want to delete user {}'.format(self.active_user.get()))

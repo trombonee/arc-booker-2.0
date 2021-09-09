@@ -16,7 +16,7 @@ WEEKDAY_DICT = {
     'Saturday': 3,
 }
 
-def update_crontabs():
+def update_crontabs() -> None:
     user_data = return_data()
 
     cron = CronTab(user=True)
@@ -32,7 +32,7 @@ def update_crontabs():
     
     cron.write()
 
-def generate_cron_time(day, time):
+def generate_cron_time(day: str, time: str) -> str:
     hour, minute = time.split(':')
     
     hour = int(hour)
@@ -42,12 +42,11 @@ def generate_cron_time(day, time):
 
     return '{} {} * * {}'.format(minute, hour, day_digit)
 
-def generate_cron_command(user, booking_zone, booking_time):
+def generate_cron_command(user: str, booking_zone: str, booking_time: str) -> str:
     command = '{} {} {} {} {} >> {}.log'.format(VENV, BOOKER, user, booking_zone, booking_time, user)
 
     return command
 
 
 if __name__ == '__main__':
-
     update_crontabs()

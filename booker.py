@@ -109,8 +109,8 @@ class Booker(object):
                     pass
             print(str(datetime.now()), 'Booking time could not be found')
             logging.warning('Booking time could not be found')
-            # To send text to user offering other booking times
             return False
+            
         except Exception as e:
             print(str(datetime.now()), 'Could not load booking times')
             logging.error('Could not load booking times')
