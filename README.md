@@ -22,7 +22,7 @@ This folder contains two Python files. The [Application](https://github.com/trom
 
 Here is a screenshot of it:
 
-![UI](https://github.com/trombonee/arc-booker-2.0/tree/main/readme_img/arc-booker-ui.png)
+![UI](https://raw.githubusercontent.com/trombonee/arc-booker-2.0/main/readme_img/arc-booker-ui.png)
 
 ### [Simple Booking](https://github.com/trombonee/arc-booker-2.0/blob/main/simple_booking.py)
 Anxious to put the booker to use, I made this simple booking script. It works by reading a user config JSON file (containing login information and desired gym zone) and will book at the time specified by the constants at the top of the script.
