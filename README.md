@@ -24,8 +24,18 @@ Here is a screenshot of it:
 
 ![UI](https://raw.githubusercontent.com/trombonee/arc-booker-2.0/main/readme_img/arc-booker-ui.png)
 
+As seen in the image above users can be updated, created and deleted with the UI. One thing to note is that each time a user is modified, an updated configuration file (containing booking information) is pushed to a seperate private repository basically acting like a non-relational database.
+
+These configuration files are then pulled onto my Raspberry PI which handles the remaining tasks.
+
+### [Cron Generator](https://github.com/trombonee/arc-booker-2.0/blob/main/generate_cron.py)
+Having a file containing the data about when I'd like to go to the gym is nice and all but without something telling the PI to execute at those desired times, it would be useless. Thats where this script comes in. It automatically generates the cron tasks according the desired booking times and creates a crontab with them.
+
+### [Cron Booker](https://github.com/trombonee/arc-booker-2.0/blob/main/cron_booker.py)
+This script is what the cron tasks are told to run. It takes in command line arguments for the user it's booking for, the desired zone, and time. It will then book three days in advance of the desired time.
+
 ### [Simple Booking](https://github.com/trombonee/arc-booker-2.0/blob/main/simple_booking.py)
-Anxious to put the booker to use, I made this simple booking script. It works by reading a user config JSON file (containing login information and desired gym zone) and will book at the time specified by the constants at the top of the script.
+Before creating all the stuff above, I was anxious to put the booker to use so I made this simple booking script. It works by reading a user config JSON file (containing login information and desired gym zone) and will book at the time specified by the constants at the top of the script.
 
 To use this script make your own config file with updated information, update the constants to your desired booking time and finally setup a crontab task to automatically run the script at that booking time. (This script books three days in advance since each time slot comes out 72 hours before its start time)
 
