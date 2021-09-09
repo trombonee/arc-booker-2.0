@@ -1,3 +1,5 @@
+import os, sys
+sys.path.append(os.getcwd())
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -43,6 +45,7 @@ class Booker(object):
             tmp = self.checkout() if tmp else False
 
             if tmp:
+                print(str(datetime.now()), 'Successfully booked for user: {}'.format(self.username))
                 logging.info('Successfully booked for user: {}'.format(self.username))
             
 
@@ -57,14 +60,16 @@ class Booker(object):
                         )))
 
             login_button.click()
+            print(str(datetime.now()), 'Found login page')
             logging.info('Found login page')
             return self.fill_login_form()
         except Exception as e:
+            print(str(datetime.now()), 'Error when trying to login to webpage')
             logging.error('Error when trying to login to webpage')
             logging.error(str(e))
             return False
          
-    def fill_login_form(self) -> bool:
+    def fill_login_form(self) ->  bool:
         try:
             signon_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
                     (   By.CSS_SELECTOR,
@@ -74,11 +79,13 @@ class Booker(object):
             self.driver.find_element_by_id('username').send_keys(self.username)
             self.driver.find_element_by_id('password').send_keys(self.password)
             signon_button.click()
+            print(str(datetime.now()), 'Filled log in form')
             logging.info('Filled log in form')
             WebDriverWait(self.driver, 5).until(EC.url_contains('getactive'))
             return True
 
         except Exception as e:
+            print(str(datetime.now()), 'Error filling in log in form, ensure login credentials are correct')
             logging.error('Error filling in log in form, ensure login credentials are correct')
             logging.error(str(e))
             return False
@@ -95,14 +102,17 @@ class Booker(object):
                     available_times.append(time_slot)
                     if self.booking_info == time_slot:
                         button.click()
+                        print(str(datetime.now()), 'Found booking time')
                         logging.info('Found booking time')
                         return True
                 except:
                     pass
+            print(str(datetime.now()), 'Booking time could not be found')
             logging.warning('Booking time could not be found')
             # To send text to user offering other booking times
             return False
         except Exception as e:
+            print(str(datetime.now()), 'Could not load booking times')
             logging.error('Could not load booking times')
             logging.error(str(e))
             return False
@@ -113,9 +123,11 @@ class Booker(object):
             WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located((By.ID, 'loading')))
             accept_button = self.driver.find_element_by_id('btnAccept')
             accept_button.click()
+            print(str(datetime.now()), 'Accepted waiver')
             logging.info('Accepted waiver')
             return True
         except Exception as e:
+            print(str(datetime.now()), 'Could not accept waiver')
             logging.error('Could not accept waiver')
             logging.error(str(e))
             return False
@@ -125,6 +137,7 @@ class Booker(object):
             checkout_button = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'checkoutButton')))
             checkout_button.click()
         except Exception as e:
+            print(str(datetime.now()), 'Could not press checkout button')
             logging.error('Could not press checkout button')
             logging.error(str(e))
             return False
@@ -132,9 +145,11 @@ class Booker(object):
         try:
             payment_button = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.card-item-main:nth-child(3)')))
             payment_button.click()
+            print(str(datetime.now()), 'Checked out')
             logging.info('Checked out')
             return True
         except Exception as e:
+            print(str(datetime.now()), 'Could not press payment option')
             logging.error('Could not press payment option')
             logging.error(str(e))
             return False
@@ -143,9 +158,11 @@ class Booker(object):
         try:
             cookies_accept = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'gdpr-cookie-accept')))
             cookies_accept.click()
+            print(str(datetime.now()), 'Cookies accepted')
             logging.info('Cookies accepted')
             return True
         except Exception as e:
+            print(str(datetime.now()), 'Could not accept cookies')
             logging.error('Could not accept cookies')
             logging.error(str(e))
             return False

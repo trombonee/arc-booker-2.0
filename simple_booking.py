@@ -38,7 +38,8 @@ def main() -> None:
 
 def booking_thread(user: str, data: dict, booking_day: date, booking_time: time, zone: str='lower-squatrack') -> None:
     logging.info('Begining booking for {} on thread {}'.format(user, threading.current_thread()))
-    booker = Booker(booking_day, booking_time, data['username'], data['password'], zone)
+    print(str(datetime.now()), 'Begining booking for {} on thread {}'.format(user, threading.current_thread()))
+    booker = Booker(booking_day, booking_time, data['username'], data['password'], data['zone'])
     booker.book()
 
 
