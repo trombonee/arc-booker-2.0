@@ -1,5 +1,5 @@
 import os, sys
-sys.path.append(os.getcwd())
+sys.path.append('/home/pi/Documents/arc-booker-2.0')
 
 import tkinter as tk
 from tkinter import StringVar, ttk
@@ -182,9 +182,13 @@ class Application(tk.Frame):
         dt = datetime.combine(date.today(), time(fh, fm))
         end_t = datetime.combine(date.today(),time(lh, lm))
         td = timedelta(hours=1, minutes=15)
+        special = timedelta(hours=1, minutes=30)
         while dt <= end_t:
             time_list.append(dt.strftime('%H:%M'))
-            dt = dt + td
+            if dt.strftime('%M') == str(lm):
+                dt = dt + special
+            else:
+                dt = dt + td
         
         return time_list
     
