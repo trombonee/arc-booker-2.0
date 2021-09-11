@@ -2,7 +2,7 @@ from git import Repo
 import json
 import os
 
-REPO_PATH = r'/home/lucat/Documents/arc-booker-userdata'
+REPO_PATH = r'/home/pi/Documents/arc-booker-userdata'
 COMMIT_MESSAGE = 'User data update'
 
 def git_pull() -> None:

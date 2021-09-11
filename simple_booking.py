@@ -1,4 +1,4 @@
-#! /home/lucat/Documents/arc-booker-2.0/.venv/bin/python
+#! /home/pi/Documents/arc-booker-2.0/.venv/bin/python
 
 from datetime import datetime, time, date, timedelta
 import threading
@@ -7,14 +7,14 @@ import json
 from booker import Booker
 import logging
 
-CONFIG_FILE = '/home/lucat/Documents/arc-booker-2.0/user_config.json'
+CONFIG_FILE = '/home/pi/Documents/arc-booker-2.0/user_config.json'
 ZONE = 'lower-squatrack'
 HOUR = 7
 MINUTE = 45
 
 logging.basicConfig(
         format= '%(asctime)s %(levelname)-8s %(message)s',
-        filename='/home/lucat/Documents/arc-booker-2.0/booking.log', 
+        filename='/home/pi/Documents/arc-booker-2.0/booking.log', 
         level=logging.INFO,
         datefmt='%Y-%m-%d %H:%M:%S'
     )

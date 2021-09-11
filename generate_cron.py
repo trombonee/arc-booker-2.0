@@ -1,10 +1,14 @@
+#! /home/pi/Documents/arc-booker-2.0/.venv/bin/python
 
 from crontab import CronTab
-from userdata_app.update_userdata import return_data
+from userdata_app.update_userdata import return_data, git_pull
 from datetime import time
 
-VENV = '/home/lucat/Documents/arc-booker-2.0/.venv/bin/python'
-BOOKER = '/home/lucat/Documents/arc-booker-2.0/cron_booker.py'
+VENV = '/home/pi/Documents/arc-booker-2.0/.venv/bin/python'
+BOOKER = '/home/pi/Documents/arc-booker-2.0/cron_booker.py'
+UPDATE_CRON = '/home/pi/Documents/arc-booker-2.0/generate_cron.py'
+UPDATE_SCHEDULE = '0 1 * * *'
+REBOOT_SCHEDULE = '0 0 * * *'
 
 WEEKDAY_DICT = {
     'Sunday': 4,
@@ -17,9 +21,12 @@ WEEKDAY_DICT = {
 }
 
 def update_crontabs() -> None:
+    git_pull()
     user_data = return_data()
 
     cron = CronTab(user=True)
+
+    cron.remove_all()
 
     for user, data in user_data.items():
         for day, booking_data in data['bookings'].items():
@@ -30,11 +37,17 @@ def update_crontabs() -> None:
                 job = cron.new(command=cron_command)
                 job.setall(cron_time)
     
+    job = cron.new(command='{} {}'.format(VENV, UPDATE_CRON))
+    job.setall(UPDATE_SCHEDULE)
+
+    job = cron.new(command='sudo reboot')
+    job.setall(REBOOT_SCHEDULE)
+
     cron.write()
 
 def generate_cron_time(day: str, time: str) -> str:
     hour, minute = time.split(':')
-    
+
     hour = int(hour)
     minute = int(minute)
 

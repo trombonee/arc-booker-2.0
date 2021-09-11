@@ -30,9 +30,9 @@ class Booker(object):
         self.username = username
         self.password = password
 
-        options = webdriver.FirefoxOptions()
+        options = webdriver.ChromeOptions()
         options.add_argument('--headless')
-        self.driver = webdriver.Firefox(options=options)
+        self.driver = webdriver.Chrome(options=options)
 
     def book(self) -> None:
         if self.booking_info:
