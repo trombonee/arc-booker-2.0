@@ -33,6 +33,7 @@ class Booker(object):
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         self.driver = webdriver.Chrome(options=options)
+        self.retry = False
 
     def book(self) -> None:
         if self.booking_info:
@@ -47,6 +48,15 @@ class Booker(object):
             if tmp:
                 print(str(datetime.now()), 'Successfully booked for user: {}'.format(self.username))
                 logging.info('Successfully booked for user: {}'.format(self.username))
+            elif not self.retry:
+                self.retry = True
+                print(str(datetime.now()), 'Booking failed, attempting again for: {}'.format(self.username))
+                logging.info('Booking failed, attempting again for: {}'.format(self.username))
+                self.driver.close()
+                options = webdriver.ChromeOptions()
+                options.add_argument('--headless')
+                self.driver = webdriver.Chrome(options=options)
+                self.book()
             
 
     def login(self) -> bool:

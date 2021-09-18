@@ -5,7 +5,8 @@ links = {
     'upper-dumbbell': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=1125d7e6-c0f9-4dbd-b490-ebb717a0f104&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5',
     'cardio-bike': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=46aa3a1c-4ab5-4e47-b9db-e60c7450637b&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5',
     'cardio-stairs': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=2fd2c803-6110-4f0c-9238-11097f6e5f03&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5',
-    'cardio-treadmill': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=8c191d1e-1522-4648-af29-1122234cc120&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5'
+    'cardio-treadmill': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=8c191d1e-1522-4648-af29-1122234cc120&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5',
+    'stacked-weights': 'https://getactive.gogaelsgo.com/Program/GetProgramDetails?courseId=fc645305-13fa-4bf3-8bab-51bd6779e13e&semesterId=01ceaf62-f800-498f-85aa-8930a361b2b5'
 }
 
 zone_time_data = {
@@ -51,4 +52,10 @@ zone_time_data = {
         'last_hour': 21,
         'last_minute': 45
     },
+    'stacked-weights': {
+        'first_hour': 6,
+        'first_minute': 00,
+        'last_hour': 21,
+        'last_minute': 45
+    }
 }
