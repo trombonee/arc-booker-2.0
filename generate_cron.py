@@ -51,6 +51,12 @@ def generate_cron_time(day: str, time: str) -> str:
     hour = int(hour)
     minute = int(minute)
 
+    if minute == 0:
+        minute = 59
+        hour = hour - 1
+    else:
+        minute = minute - 1
+
     day_digit = WEEKDAY_DICT[day]
 
     return '{} {} * * {}'.format(minute, hour, day_digit)

@@ -41,6 +41,12 @@ class Booker(object):
             tmp = self.acknowledge_cookies()
 
             tmp = self.login() if tmp else False
+
+
+            while datetime.now() < self.booking_info:
+                pass
+            
+            self.driver.refresh()
             tmp = self.find_booking_time() if tmp else False
             tmp = self.accept_waiver() if tmp else False
             tmp = self.checkout() if tmp else False
@@ -118,7 +124,8 @@ class Booker(object):
                 except:
                     pass
             print(str(datetime.now()), 'Booking time could not be found')
-            logging.warning('Booking time could not be found')
+            print('Available times are: {}'.format(available_times))
+            logging.warning('Booking time could not be found, available times are: {}'.format(available_times))
             return False
             
         except Exception as e:
